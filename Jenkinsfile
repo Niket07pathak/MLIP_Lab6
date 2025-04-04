@@ -14,9 +14,9 @@ pipeline {
             steps {
                 bat '''
                 echo Test Step: Running pytest on Windows system
-                call mlip\Scripts\activate
+                call mlip\\Scripts\\activate
                 pytest --maxfail=1 --disable-warnings
-                call mlip\Scripts\deactivate
+                call mlip\\Scripts\\deactivate
                 '''
             }
         }
