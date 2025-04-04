@@ -6,11 +6,11 @@ pipeline {
             steps {
                 bat '''
                 echo "Setting up Python virtual environment..."
-                python -m venv .venv
+                "C:\\Users\\n07pa\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv .venv
                 call .venv\\Scripts\\activate
-                pip install --upgrade pip
+                "C:\\Users\\n07pa\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install --upgrade pip
                 pip install pytest
-                pip install -r requirements.txt
+                if exist requirements.txt pip install -r requirements.txt
                 '''
             }
         }
