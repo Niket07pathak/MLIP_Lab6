@@ -12,19 +12,25 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '''#!/bin/bash
-                echo 'Test Step: We run testing tool like pytest here'
-
-                # TODO fill out the path to conda here
-                # sudo /PATH/TO/CONDA init
-
-                # TODO Complete the command to run pytest
-                # sudo /PATH/TO/CONDA run -n <Envinronment Name> <Command you want to run>
-
-                echo 'pytest not runned'
-                exit 1 #comment this line after implementing Jenkinsfile
-                '''
-
+                script {
+                    if (isUnix()) {
+                        // For Linux/Mac systems
+                        sh '''
+                        echo "Test Step: Running pytest on Unix system"
+                        source mlip/bin/activate
+                        pytest --maxfail=1 --disable-warnings
+                        deactivate
+                        '''
+                    } else {
+                        // For Windows systems
+                        bat '''
+                        echo Test Step: Running pytest on Windows system
+                        call mlip\\Scripts\\activate
+                        pytest --maxfail=1 --disable-warnings
+                        call mlip\\Scripts\\deactivate
+                        '''
+                    }
+                }
             }
         }
         stage('Deploy') {
